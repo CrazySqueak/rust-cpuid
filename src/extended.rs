@@ -213,6 +213,14 @@ impl ExtendedProcessorFeatureIdentifiers {
     pub fn has_fma4(&self) -> bool {
         self.vendor == Vendor::Amd && self.ecx.contains(ExtendedFunctionInfoEcx::FMA4)
     }
+    
+    /// Translation Cache Extension support.
+    ///
+    /// # Platform
+    /// ✅ AMD ❌ Intel (will return false)
+    pub fn has_tce(&self) -> bool {
+        self.vendor == Vendor::Amd && self.ecx.contains(ExtendedFunctionInfoEcx::TCE)
+    }
 
     /// Trailing bit manipulation instruction support.
     ///
@@ -404,6 +412,7 @@ bitflags! {
         const WDT = 1 << 13;
         const LWP = 1 << 15;
         const FMA4 = 1 << 16;
+        const TCE = 1 << 17;
         const TBM = 1 << 21;
         const TOPEXT = 1 << 22;
         const PERFCTREXT = 1 << 23;
